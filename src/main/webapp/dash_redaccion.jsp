@@ -6,13 +6,14 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=Edge">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <title>Mis demandas | Syslaw</title>
+        <title>Demandas en redacción | Syslaw</title>
         <!-- Favicon-->
         <link rel="icon" href="favicon.ico" type="image/x-icon">
 
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:200,400,700&amp;subset=cyrillic" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500" rel="stylesheet">
 
         <!-- Bootstrap Core Css -->
         <link href="plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -45,6 +46,9 @@
 
         <!--WaitMe Css-->
         <link href="plugins/waitme/waitMe.css" rel="stylesheet" />
+        
+        <!-- material walkthrough -->
+        <link href="plugins/material-walkthrough/material-walkthrough.css" rel="stylesheet" />
 
         <style>.modal-backdrop.in { opacity: .4;}</style>
 
@@ -90,7 +94,7 @@
                 <div class="navbar-header">
                     <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                     <a href="javascript:void(0);" class="bars"></a>
-                    <a class="navbar-brand" href="index.html">SysLaw</a>
+                    <a class="navbar-brand" href=".">SysLaw</a>
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-collapse">
 
@@ -111,7 +115,7 @@
                 <!-- User Info -->
                 <div class="user-info">
                     <div class="py-5 text-center">
-                        <img class="d-block mx-auto mb-4" src="images/logo.svg" alt="" width="136" height="58" style="margin-top: 10px">
+                        <img class="d-block mx-auto mb-4" src="images/syslaw_dash_info_2.svg" alt="" width="230" style="margin-top: 25px; margin-bottom: 10px;">
                     </div>
                     <div class="info-container">
                         <%
@@ -122,7 +126,7 @@
                         <div class="email"><%=u.getCorreo()%></div>
                         <%
                             } else {
-                                response.sendRedirect("signin.html");
+                                response.sendRedirect("login");
                             }
                         %>
 
@@ -138,7 +142,7 @@
                 </div>
                 <!-- #User Info -->
                 <!-- Menu -->
-                <%@include file="menu.jsp" %>
+                <%@include file="util/menu.jsp" %>
 
                 <!-- #Menu -->
                 <!-- Footer -->
@@ -163,7 +167,7 @@
                             <div class="header bg-white add-event-header" style="background-color: #f1f1f1 !important;">
                                 <div class="row clearfix">
                                     <div class="col-xs-6 col-sm-6" style="margin-top: 5px">
-                                        <h2 style="color: #1981ad;">Mis demandas</h2>
+                                        <h2><span id="tour_redaccion">Demandas en redacción</span></h2>
                                     </div>
                                     <div class="col-xs-12 col-sm-6 align-right">
                                         <button type="button" data-toggle="modal" data-target="#nuevaDemanda" class="btn bg-syslaw waves-effect btn-no-shadow">
@@ -180,27 +184,16 @@
                                 <div class="card">
                                     <div class="body">
                                         <div class="table-responsive">
-                                            <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="demandas">
+                                            <table id="liststate1" class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                                 <thead>
                                                     <tr>
-                                                        <th>Título</th>
+                                                        <th id="titulo_tour">Título</th>
                                                         <th>Modificado</th>
                                                         <th>Creado</th>
-                                                        <th>Ayudante</th>
                                                         <th>Porcentaje</th>
                                                         <th></th>
                                                     </tr>
                                                 </thead>
-                                                <tfoot>
-                                                    <tr>
-                                                        <th>Título</th>
-                                                        <th>Modificado</th>
-                                                        <th>Creado</th>
-                                                        <th>Ayudante</th>
-                                                        <th>Porcentaje</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </tfoot>
                                             </table>
                                         </div>
                                     </div>
@@ -235,7 +228,7 @@
                                             <label for="nuevotitulo">Titulo de la nueva demanda</label>
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <input autofocus type="text" id="nuevotitulo" class="form-control" placeholder="Ingresa un título...">
+                                                    <input autofocus maxlength="50" type="text" id="nuevotitulo" class="form-control" placeholder="Ingresa un título...">
                                                 </div>
                                             </div>
                                         </div>
@@ -295,14 +288,16 @@
         <script src="plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
         <script src="plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
         <script src="plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+        
+        <!-- Material Walkthrough -->
+        <script src="plugins/material-walkthrough/material-walkthrough.js"></script>
 
         <!-- Theme Js -->
         <script src="js/admin.js"></script>
         <script src="js/pages/ui/tooltips-popovers.js"></script>
 
         <!-- Custom Js -->
-        <script src="js/custom/dashboard.js"></script>
-        <script src="js/pages/index.js"></script>
+        <script src="js/custom/dashRedaccion.js"></script>
 
 
     </body>

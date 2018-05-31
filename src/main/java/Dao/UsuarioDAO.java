@@ -27,8 +27,8 @@ public class UsuarioDAO {
         connection = DbUtil.getConnection();
     }
 
-    public void addUsuario(Usuario u, String pass) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("insert into usuario(documento,tipo_documento,nombre,ciudad,direccion,correo,password,tipo_usuario,delete) values (?,?,?,?,?,?,?,?,1)");
+    public void addUsuarioDemandante(Usuario u, String pass) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("insert into usuario(documento,tipo_documento,nombre,ciudad,direccion,correo,password,tipo_usuario,delete,dinero) values (?,?,?,?,?,?,?,?,1,10000)");
         preparedStatement.setString(1, u.getDocumento());
         preparedStatement.setInt(2, u.getTipo_id());
         preparedStatement.setString(3, u.getNombre());
@@ -37,6 +37,20 @@ public class UsuarioDAO {
         preparedStatement.setString(6, u.getCorreo());
         preparedStatement.setString(7, pass);
         preparedStatement.setInt(8, u.getTipo_usuario());
+        preparedStatement.executeUpdate();
+    }
+
+    public void addUsuarioAbogado(Usuario u, String pass) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("insert into usuario(documento,tipo_documento,nombre,ciudad,direccion,correo,password,tarjeta,tipo_usuario,delete,dinero) values (?,?,?,?,?,?,?,?,?,1,10000)");
+        preparedStatement.setString(1, u.getDocumento());
+        preparedStatement.setInt(2, u.getTipo_id());
+        preparedStatement.setString(3, u.getNombre());
+        preparedStatement.setString(4, u.getCiudad());
+        preparedStatement.setString(5, u.getDireccion());
+        preparedStatement.setString(6, u.getCorreo());
+        preparedStatement.setString(7, pass);
+        preparedStatement.setString(8, u.getTarjeta());
+        preparedStatement.setInt(9, u.getTipo_usuario());
         preparedStatement.executeUpdate();
     }
 
@@ -49,7 +63,16 @@ public class UsuarioDAO {
         return false;
     }
 
-    public boolean isUser(String correo) throws SQLException {
+    public boolean isUserDoc(String documento) throws SQLException {
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery("select * from usuario where documento='" + documento + "'");
+        while (rs.next()) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isUserCorreo(String correo) throws SQLException {
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery("select * from usuario where correo='" + correo + "'");
         while (rs.next()) {
@@ -69,14 +92,16 @@ public class UsuarioDAO {
             user.setCiudad(rs.getString("ciudad"));
             user.setDireccion(rs.getString("direccion"));
             user.setCorreo(correo);
+            user.setTarjeta(rs.getString("tarjeta"));
             user.setTipo_usuario(rs.getInt("tipo_usuario"));
+            user.setDinero(rs.getInt("dinero"));
         }
         return user;
     }
 
     public String getNameAyudante(String documento) throws SQLException {
         Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select correo from usuario where delete=1 and documento='" + documento+"'");
+        ResultSet rs = statement.executeQuery("select correo from usuario where delete=1 and documento='" + documento + "'");
         while (rs.next()) {
             return rs.getString("correo");
         }
@@ -85,7 +110,7 @@ public class UsuarioDAO {
 
     public int getIdAyudante(String correo) throws SQLException {
         Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select documento from usuario where delete=1 and correo='" + correo+"'");
+        ResultSet rs = statement.executeQuery("select documento from usuario where delete=1 and correo='" + correo + "'");
         while (rs.next()) {
             return rs.getInt("id_usuario");
         }
@@ -94,15 +119,16 @@ public class UsuarioDAO {
 
     public Usuario existUser(String documento) throws SQLException {
         Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("select * from usuario where delete=1 and documento='" + documento+"'");
-        Usuario user=new Usuario();
-        while(rs.next()){
+        ResultSet rs = statement.executeQuery("select * from usuario where delete=1 and documento='" + documento + "'");
+        Usuario user = new Usuario();
+        while (rs.next()) {
             user.setDocumento(documento);
             user.setNombre(rs.getString("nombre"));
             user.setCiudad(rs.getString("ciudad"));
             user.setDireccion(rs.getString("direccion"));
             user.setCorreo(rs.getString("correo"));
             user.setTipo_id(rs.getInt("tipo_documento"));
+            user.setDinero(rs.getInt("dinero"));
             return user;
         }
         user.setDocumento(documento);
@@ -111,7 +137,52 @@ public class UsuarioDAO {
         user.setCiudad("");
         user.setCorreo("");
         user.setTipo_id(-1);
+        user.setDinero(0);
         return user;
+    }
+
+    public boolean updateMoney(String documento, int dinero) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("update usuario set dinero=" + dinero + " where documento='" + documento + "'");
+        preparedStatement.executeUpdate();
+        return true;
+    }
+
+    public Boolean removeMoney(String id_usuario) throws SQLException {
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery("select dinero from usuario where delete=1 and documento='" + id_usuario + "'");
+        rs.next();
+        if (rs.getInt("dinero") < 10000) {
+            return false;
+        }
+        int dinero = rs.getInt("dinero") - 10000;
+        PreparedStatement preparedStatement = connection.prepareStatement("update usuario set dinero=" + dinero + " where documento='" + id_usuario + "'");
+        preparedStatement.executeUpdate();
+        return true;
+    }
+
+    public String getMoney(String documento) throws SQLException {
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery("select dinero from usuario where delete=1 and documento='" + documento + "'");
+        rs.next();
+        String money = "" + rs.getInt("dinero");
+        String transformation = "";
+        int cont=1;
+        for (int i = money.length()-1; i >= 0; i--) {
+            transformation += money.charAt(i);
+            if (cont % 3 == 0) {
+                if (cont == 3 || cont == 9) {
+                    transformation += '.';
+                } else {
+                    transformation += "'";
+                }
+            }
+            cont++;
+        }
+        String fin="";
+        for(int i=transformation.length()-1;i>=0;i--){
+            fin+=transformation.charAt(i);
+        }
+        return fin;
     }
 
 }

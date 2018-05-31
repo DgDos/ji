@@ -29,15 +29,13 @@
     <body class="signup-page bg-syslaw-login">
         <div class="signup-box">
             <div class="logo">
-                <div class="py-5 text-center">
-                    <img class="d-block mx-auto mb-4" src="images/logo.svg" alt="" width="197" height="72">
-                    <h5 class="subtitle" >Registro de usuario</h5>
+                <div class="py-5 text-center p-t-10 p-b-10">
+                    <img class="d-block mx-auto mb-4" src="images/syslaw_signup.svg" alt="" width="320">
                 </div>
             </div>
             <div class="card">
                 <div class="body">
-                    <form id="agregarPersona" autocomplete="off">
-                        <small></small>
+                    <form id="agregarPersona" method="post" autocomplete="off">
                         <div class="form-group input-group form-float" style="margin-bottom: 20px">
                             <span class="input-group-addon">
                                 <i class="material-icons">person</i>
@@ -70,7 +68,7 @@
                             </span>
                             <div class="form-line">
                                 <input type="text" required id="documento" name="documento" class="form-control transparent-control">
-                                <label class="form-label">Documento</label>
+                                <label class="form-label">Número de documento</label>
                             </div>
                         </div>
                         <div class="form-group input-group form-float" style="margin-bottom: 20px">
@@ -88,7 +86,7 @@
                             </span>
                             <div class="form-line">
                                 <input type="text" required id="direccion" name="direccion" class="form-control transparent-control">
-                                <label class="form-label">Direccion</label>
+                                <label class="form-label">Dirección</label>
                             </div>
                         </div>
                         <div class="form-group input-group form-float" style="margin-bottom: 20px">
@@ -122,12 +120,20 @@
                             <input type="checkbox" name="terms" id="terms" class="filled-in chk-col-blue">
                             <label for="terms">Leí y estoy deacuerdo con los <a href="javascript:void(0);">términos de uso</a>.</label>
                         </div>
+                        
+                        
 
                         <button class="btn btn-block btn-lg bg-blue waves-effect" type="submit">CREAR CUENTA</button>
-
-                        <div class="m-t-25 m-b--0 align-center">
-                            <a href="signin.html">¿Ya tiene una cuenta?</a>
+                        <div id="message" class="hidden"><a href="login"><span style="width: 100%; font-size: 14px" class="badge bg-cyan">Usuario agregado con éxito! Ingresar ahora</span></a></div>
+                        
+                        <div class="m-t-15 m-b--0 align-center">
+                            <a href="login">¿Ya tiene una cuenta?</a>
                         </div>
+                        
+                        <div class="m-t-15 m-b--0 align-center">
+                            <button onclick="window.location.href='connect_signup'" class="btn btn-block btn-lg btn-default waves-effect" type="button">CUENTA PARA ABOGADOS</button>
+                        </div>
+                        
                     </form>
 
                 </div>

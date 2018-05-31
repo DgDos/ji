@@ -10,6 +10,29 @@ $('#sign_in').on('submit', function () {
     return false;
 });
 
+function showDevHints() {
+    $('#hints').removeClass("hidden");
+}
+
+function oscar() {
+    $('#correo').val("fijusohalo@gmail.com");
+    $('#pass').val("123");
+    
+}
+
+function andres() {
+    $('#correo').val("anfegave98@hotmail.com");
+    $('#pass').val("123");
+    
+}
+
+function luna() {
+    $('#correo').val("luna@gmail.com");
+    $('#pass').val("123");
+    
+}
+
+
 function verificarPersona(correo, pass) {
     quitarErrorIniciar();
     $.ajax({
@@ -27,7 +50,7 @@ function verificarPersona(correo, pass) {
             if (encontro == 'si') {
                 // Aqui debe modificar la pagina de alguna forma con jQuery para mostrar el mensaje
                 console.log('si se encontro el usuario');
-                document.location.href = 'dashboard.jsp';
+                document.location.href = 'dash';
             } else if (encontro == 'no') {
                 // Aqui debe modificar la pagina de alguna forma con jQuery para mostrar el mensaje
                 console.log('no se encontro el usuario');

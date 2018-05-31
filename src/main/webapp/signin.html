@@ -11,7 +11,8 @@
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
-
+        
+        
         <!-- Bootstrap Core Css -->
         <link href="plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
 
@@ -24,14 +25,21 @@
         <!-- Custom Css -->
         <link href="css/style.css" rel="stylesheet">
         <link href="css/custom.css" rel="stylesheet">
+
+        <style>
+            body, html {
+                height: 100%;
+                width: 100%;
+     min-width: 300px;
+            }
+        </style>
     </head>
 
     <body class="login-page bg-syslaw-login">
         <div class="login-box">
             <div class="logo">
-                <div class="py-5 text-center">
-                    <img class="d-block mx-auto mb-4" src="images/logo.svg" alt="" width="197" height="72">
-                    <h5 class="subtitle" >Ingreso   </h5>
+                <div class="py-5 text-center p-t-10 p-b-10">
+                    <img class="d-block mx-auto mb-4" src="images/syslaw_signin.svg" alt="" width="320">
                 </div>
             </div>
             <div class="card">
@@ -39,7 +47,7 @@
                     <form id="sign_in" autocomplete="off">
                         <div class="input-group">
                             <span class="input-group-addon">
-                                <i class="material-icons">person</i>
+                                <i onClick="showDevHints();" class="material-icons">person</i>
                             </span>
                             <div class="form-line">
                                 <input autofocus id="correo" type="email" class="form-control" name="correo" placeholder="Correo electrónico" required>
@@ -55,13 +63,25 @@
                         </div>
                         <div class="row m-t-15 m-b--20">
                             <div class="col-xs-8 p-t-5">
-                                <a href="signup.html">Registrate aquí</a>
+                                <a href="signup">Registrate aquí</a>
                             </div>
                             <div class="col-xs-4">
                                 <button class="btn btn-block bg-blue waves-effect" type="submit">INGRESAR</button>
                             </div>
                         </div>
                     </form>
+                </div>
+
+            </div>
+            <div class="row hidden" style="opacity: 0.3" id="hints">
+                <div class="col-xs-4">
+                    <button onClick="oscar();" class="btn btn-block bg-blue waves-effect" type="submit">Oscar (ddte)</button>
+                </div>
+                <div class="col-xs-4">
+                    <button onClick="andres();" class="btn btn-block bg-blue waves-effect" type="submit">Andres (ddo)</button>
+                </div>
+                <div class="col-xs-4">
+                    <button onClick="luna();" class="btn btn-block bg-blue waves-effect" type="submit">Luna (abgda)</button>
                 </div>
             </div>
         </div>
